@@ -1,0 +1,14 @@
+﻿<h2>Crises</h2>
+<div *ngIf="crisis">
+    <h3>"{{crisis.name}}"</h3>
+    <div>
+        <label>Id: </label>{{hero.id}}
+    </div>
+    <div>
+        <label>Name: </label>
+        <input [(ngModel)]="crisis.name" placeholder="name" />
+    </div>
+    <p>
+        <button (click)="gotoCrises()">Back</button>
+    </p>
+</div>
