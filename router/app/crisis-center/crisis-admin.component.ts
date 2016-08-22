@@ -23,5 +23,5 @@ export class CrisisAdminComponent implements OnInit {
         this.token = this.route
             .fragment
             .map(fragment => fragment || 'None');
-    }
+    }  
 }
