@@ -32,6 +32,13 @@ var CrisisService = (function () {
         return crisesPromise
             .then(function (crises) { return crises.find(function (crisis) { return crisis.id === +id; }); });
     };
+    CrisisService.prototype.addCrisis = function (name) {
+        name = name.trim();
+        if (name) {
+            var crisis_1 = new Crisis(CrisisService.nextCrisisId++, name);
+            crisesPromise.then(function (crises) { return crises.push(crisis_1); });
+        }
+    };
     CrisisService.nextCrisisId = 100;
     CrisisService = __decorate([
         core_1.Injectable(), 
@@ -40,4 +47,9 @@ var CrisisService = (function () {
     return CrisisService;
 }());
 exports.CrisisService = CrisisService;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=crisis.service.js.map

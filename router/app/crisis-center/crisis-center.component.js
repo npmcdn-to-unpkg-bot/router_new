@@ -14,13 +14,17 @@ var CrisisCenterComponent = (function () {
     }
     CrisisCenterComponent = __decorate([
         core_1.Component({
-            selector: 'no-need-one-(only navigates)',
-            moduleId: module.id,
-            templateUrl: './crisis-center.html'
+            templateUrl: './crisis-center.html',
+            moduleId: module.id
         }), 
         __metadata('design:paramtypes', [])
     ], CrisisCenterComponent);
     return CrisisCenterComponent;
 }());
 exports.CrisisCenterComponent = CrisisCenterComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=crisis-center.component.js.map

@@ -27,12 +27,17 @@ var CrisisAdminComponent = (function () {
     };
     CrisisAdminComponent = __decorate([
         core_1.Component({
-            moduleId: module.id,
-            templateUrl: './crisis-admin.component.html'
+            templateUrl: './crisis-admin.component.html',
+            moduleId: module.id
         }), 
         __metadata('design:paramtypes', [router_1.ActivatedRoute])
     ], CrisisAdminComponent);
     return CrisisAdminComponent;
 }());
 exports.CrisisAdminComponent = CrisisAdminComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=crisis-admin.component.js.map

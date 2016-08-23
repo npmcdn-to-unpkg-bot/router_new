@@ -7,4 +7,9 @@ var heroesRoutes = [
     { path: 'hero/:id', component: hero_detail_component_1.HeroDetailComponent }
 ];
 exports.heroesRouting = router_1.RouterModule.forChild(heroesRoutes);
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=heroes.routing.js.map

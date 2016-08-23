@@ -2,13 +2,16 @@
 import { Router, Resolve,
     ActivatedRouteSnapshot } from '@angular/router';
 import { Observable }             from 'rxjs/Observable';
-import {  CrisisService } from './crisis.service';
-import {Crisis} from './crisis'
+
+import { Crisis, CrisisService } from './crisis.service';
+
 @Injectable()
 export class CrisisDetailResolve implements Resolve<Crisis> {
     constructor(private cs: CrisisService, private router: Router) { }
+
     resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
         let id = +route.params['id'];
+
         return this.cs.getCrisis(id).then(crisis => {
             if (crisis) {
                 return crisis;
@@ -19,3 +22,10 @@ export class CrisisDetailResolve implements Resolve<Crisis> {
         });
     }
 }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

@@ -1,11 +1,11 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit }  from '@angular/core';
 import { ActivatedRoute }     from '@angular/router';
-import 'rxjs/add/operator/map';
 import { Observable }         from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
-    moduleId: module.id,
-    templateUrl: './crisis-admin.component.html'
+    templateUrl: './crisis-admin.component.html',
+      moduleId:module.id
 })
 export class CrisisAdminComponent implements OnInit {
     sessionId: Observable<string>;
@@ -23,5 +23,12 @@ export class CrisisAdminComponent implements OnInit {
         this.token = this.route
             .fragment
             .map(fragment => fragment || 'None');
-    }  
+    }
 }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

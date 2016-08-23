@@ -1,27 +1,41 @@
 ﻿import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable }    from 'rxjs/Observable';
-import { DialogService }  from '../dialog.service';
-import { Crisis } from './crisis';
+import { Router, ActivatedRoute } from '@angular/router';
 
+import { Crisis }         from './crisis.service';
+import { DialogService }  from '../dialog.service';
+import { Observable }     from 'rxjs/Observable';
 
 @Component({
-    moduleId: module.id,
     templateUrl: './crisis-detail.component.html',
-    styleUrls: ['./crisis-detail.component.css']
+    styleUrls: ['./crisis-detail.component.css'],
+     moduleId:module.id
 })
+
 export class CrisisDetailComponent implements OnInit {
     crisis: Crisis;
     editName: string;
-    error: any;
-    private sub: Subscription;
 
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        public dialogService: DialogService
+    ) { }
 
-    constructor(private router: Router,
-        private route: ActivatedRoute, private dialogService: DialogService) { }
+    ngOnInit() {
+        this.route.data.forEach((data: { crisis: Crisis }) => {
+            this.editName = data.crisis.name;
+            this.crisis = data.crisis;
+        });
+    }
 
-    gotoHeroes() { this.router.navigate(['/crises']); }
+    cancel() {
+        this.gotoCrises();
+    }
+
+    save() {
+        this.crisis.name = this.editName;
+        this.gotoCrises();
+    }
 
     canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
         // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
@@ -33,40 +47,7 @@ export class CrisisDetailComponent implements OnInit {
         return this.dialogService.confirm('Discard changes?');
     }
 
-
-    ngOnInit() {
-        // We'll take the relevant parts of the ngOnInit lifecycle hook in our CrisisDetailComponent and moved them into our CrisisDetailResolve guard
-        // (+) converts string 'id' to a number
-
-        //1
-        //---- 
-        //this.sub = this.route.params.subscribe(params => {
-        //    let id = +params['id']; // (+) converts string 'id' to a number
-        //    this.crisisService.geCrisis(id).then(crisis => this.crisis = crisis);
-        //});
-
-        //2
-        //---Suppose we know for certain that HeroDetailComponent will never, never, ever be re-used...
-        //let id = +this.route.snapshot.params['id'];
-        //this.heroService.getHero(id).then(hero => this.hero = hero);
-
-        this.route.data.forEach((data: { crisis: Crisis }) => {
-            this.editName = data.crisis.name;
-            this.crisis = data.crisis;
-        });
-
-
-    }
-    cancel() {
-        this.gotoCrises();
-    }
-
-    save() {
-        this.crisis.name = this.editName;
-        this.gotoCrises();
-    }
-
-    gotoCrises(): void {
+    gotoCrises() {
         let crisisId = this.crisis ? this.crisis.id : null;
         // Pass along the hero id if available
         // so that the CrisisListComponent can select that hero.
@@ -74,10 +55,11 @@ export class CrisisDetailComponent implements OnInit {
         // Absolute link
         this.router.navigate(['/crisis-center', { id: crisisId, foo: 'foo' }]);
     }
-    ngOnDestroy() {
-        //We no longer need to subscribe and unsubscribe to the ActivatedRoute params 
-        this.sub.unsubscribe();
-    }
-
-
 }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

@@ -17,6 +17,7 @@ var CrisisListComponent = (function () {
         this.route = route;
         this.router = router;
     }
+    CrisisListComponent.prototype.isSelected = function (crisis) { return crisis.id === this.selectedId; };
     CrisisListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route
@@ -28,22 +29,28 @@ var CrisisListComponent = (function () {
         });
     };
     CrisisListComponent.prototype.ngOnDestroy = function () {
-        this.sub.unsubscribe();
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
     };
     CrisisListComponent.prototype.onSelect = function (crisis) {
-        // Absolute link
+        // Navigate with Absolute link
         this.router.navigate(['/crisis-center', crisis.id]);
     };
     CrisisListComponent = __decorate([
         core_1.Component({
-            selector: 'my-crises',
-            moduleId: module.id,
             templateUrl: './crises.list.html',
-            styleUrls: ['./crises.component.css']
+            styleUrls: ['./crises.component.css'],
+            moduleId: module.id
         }), 
         __metadata('design:paramtypes', [crisis_service_1.CrisisService, router_1.ActivatedRoute, router_1.Router])
     ], CrisisListComponent);
     return CrisisListComponent;
 }());
 exports.CrisisListComponent = CrisisListComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=crisis-list.component.js.map

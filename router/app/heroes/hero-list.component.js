@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// TODO SOMEDAY: Feature Componetized like CrisisCenter
 var core_1 = require('@angular/core');
-var hero_detail_component_1 = require('./hero-detail.component');
-var hero_service_1 = require('./hero.service');
 var router_1 = require('@angular/router');
+var hero_service_1 = require('./hero.service');
 var HeroListComponent = (function () {
-    function HeroListComponent(router, route, service) {
-        this.router = router;
-        this.route = route;
+    function HeroListComponent(service, route, router) {
         this.service = service;
+        this.route = route;
+        this.router = router;
     }
     HeroListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,21 +28,27 @@ var HeroListComponent = (function () {
                 .then(function (heroes) { return _this.heroes = heroes; });
         });
     };
+    HeroListComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    HeroListComponent.prototype.isSelected = function (hero) { return hero.id === this.selectedId; };
     HeroListComponent.prototype.onSelect = function (hero) {
         this.router.navigate(['/hero', hero.id]);
     };
-    HeroListComponent.prototype.isSelected = function (hero) { return hero.id === this.selectedId; };
     HeroListComponent = __decorate([
         core_1.Component({
-            selector: 'my-heroes',
-            moduleId: module.id,
             templateUrl: './heroes.list.html',
             styleUrls: ['./heroes.component.css'],
-            directives: [hero_detail_component_1.HeroDetailComponent],
+            moduleId: module.id
         }), 
-        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, hero_service_1.HeroService])
+        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute, router_1.Router])
     ], HeroListComponent);
     return HeroListComponent;
 }());
 exports.HeroListComponent = HeroListComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=hero-list.component.js.map

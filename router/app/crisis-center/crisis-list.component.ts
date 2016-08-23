@@ -1,23 +1,26 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router }       from '@angular/router';
-import { CrisisService } from './crisis.service';
-import {Crisis} from  './crisis'
+
+import { Crisis, CrisisService } from './crisis.service';
 import { Subscription }          from 'rxjs/Subscription';
 
 @Component({
-    selector: 'my-crises',
-    moduleId: module.id,
     templateUrl: './crises.list.html',
-    styleUrls: ['./crises.component.css']
+    styleUrls: ['./crises.component.css'],
+     moduleId:module.id
 })
 export class CrisisListComponent implements OnInit, OnDestroy {
     crises: Crisis[];
-    selectedId: number;
+    private selectedId: number;
     private sub: Subscription;
+
     constructor(
         private service: CrisisService,
         private route: ActivatedRoute,
         private router: Router) { }
+
+    isSelected(crisis: Crisis) { return crisis.id === this.selectedId; }
+
     ngOnInit() {
         this.sub = this.route
             .params
@@ -27,12 +30,22 @@ export class CrisisListComponent implements OnInit, OnDestroy {
                     .then(crises => this.crises = crises);
             });
     }
+
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
     }
+
     onSelect(crisis: Crisis) {
-        // Absolute link
+        // Navigate with Absolute link
         this.router.navigate(['/crisis-center', crisis.id]);
     }
 }
 
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

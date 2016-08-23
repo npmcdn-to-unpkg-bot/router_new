@@ -33,4 +33,9 @@ var crisisCenterRoutes = [
     }
 ];
 exports.crisisCenterRouting = router_1.RouterModule.forChild(crisisCenterRoutes);
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=crisis-center.routing.js.map

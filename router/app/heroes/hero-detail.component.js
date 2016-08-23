@@ -12,39 +12,41 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var hero_service_1 = require('./hero.service');
 var HeroDetailComponent = (function () {
-    function HeroDetailComponent(router, heroService, route) {
-        this.router = router;
-        this.heroService = heroService;
+    function HeroDetailComponent(route, router, service) {
         this.route = route;
+        this.router = router;
+        this.service = service;
     }
-    HeroDetailComponent.prototype.gotoHeroes = function () { this.router.navigate(['/heroes']); };
     HeroDetailComponent.prototype.ngOnInit = function () {
-        // (+) converts string 'id' to a number
         var _this = this;
-        //1
-        //---- 
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params['id']; // (+) converts string 'id' to a number
-            _this.heroService.getHero(id).then(function (hero) { return _this.hero = hero; });
+            _this.service.getHero(id).then(function (hero) { return _this.hero = hero; });
         });
-        //2
-        //---Suppose we know for certain that HeroDetailComponent will never, never, ever be re-used...
-        //let id = +this.route.snapshot.params['id'];
-        //this.heroService.getHero(id).then(hero => this.hero = hero);
     };
     HeroDetailComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
+    HeroDetailComponent.prototype.gotoHeroes = function () {
+        var heroId = this.hero ? this.hero.id : null;
+        // Pass along the hero id if available
+        // so that the HeroList component can select that hero.
+        this.router.navigate(['/heroes', { id: heroId, foo: 'foo' }]);
+    };
     HeroDetailComponent = __decorate([
         core_1.Component({
-            selector: 'my-hero-detail',
-            moduleId: module.id,
             templateUrl: './hero-detail.component.html',
-            styleUrls: ['./hero-detail.component.css']
+            styleUrls: ['./hero-detail.component.css'],
+            moduleId: module.id
         }), 
-        __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, hero_service_1.HeroService])
     ], HeroDetailComponent);
     return HeroDetailComponent;
 }());
 exports.HeroDetailComponent = HeroDetailComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
 //# sourceMappingURL=hero-detail.component.js.map

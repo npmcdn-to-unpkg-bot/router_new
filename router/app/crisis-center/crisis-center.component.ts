@@ -1,8 +1,14 @@
-﻿import {Component} from '@angular/core'
-@Component({
-    selector: 'no-need-one-(only navigates)',
-    moduleId: module.id,
-    templateUrl: './crisis-center.html'
+﻿import { Component } from '@angular/core';
 
+@Component({
+    templateUrl: './crisis-center.html',
+     moduleId:module.id
 })
 export class CrisisCenterComponent { }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

@@ -1,27 +1,26 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Hero } from './hero';
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroService } from './hero.service';
+﻿// TODO SOMEDAY: Feature Componetized like CrisisCenter
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Subscription} from 'rxjs/Subscription'
 
+import { Hero, HeroService }  from './hero.service';
+import { Subscription }       from 'rxjs/Subscription';
 
 @Component({
-    selector: 'my-heroes',
-    moduleId: module.id,
     templateUrl: './heroes.list.html',
     styleUrls: ['./heroes.component.css'],
-    directives: [HeroDetailComponent],
-
+    moduleId: module.id
 })
-export class HeroListComponent implements OnInit {
+export class HeroListComponent implements OnInit, OnDestroy {
     heroes: Hero[];
-    selectedId: number;
+
+    private selectedId: number;
     private sub: Subscription;
+
     constructor(
-        private router: Router,
+        private service: HeroService,
         private route: ActivatedRoute,
-        private service: HeroService) { }
+        private router: Router) { }
+
     ngOnInit() {
         this.sub = this.route
             .params
@@ -31,10 +30,22 @@ export class HeroListComponent implements OnInit {
                     .then(heroes => this.heroes = heroes);
             });
     }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
+    isSelected(hero: Hero) { return hero.id === this.selectedId; }
+
     onSelect(hero: Hero) {
         this.router.navigate(['/hero', hero.id]);
     }
 
-    isSelected(hero: Hero) { return hero.id === this.selectedId; }
 }
 
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/
